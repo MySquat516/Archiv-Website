@@ -14,7 +14,7 @@ ALLOWED_EXTENSIONS = {
     "png", "jpg", "jpeg", "gif", "webp",
     "pdf", "zip", "docx", "xlsx", "txt", "mp3", "mp4"
 }
-CATEGORIES = ["galerie", "downloads", "medien", "historie", "produkte"]
+CATEGORIES = ["dokumente", "downloads", "bilder", "videos"]
 
 
 def get_conn():

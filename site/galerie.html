@@ -38,7 +38,7 @@
             const res = await fetch('/manifest.json', { cache: 'no-store' });
             if (!res.ok) throw new Error('Galerie konnte nicht geladen werden');
             const items = await res.json();
-            const images = items.filter(item => item.category === 'galerie');
+            const images = items.filter(item => item.category === 'bilder');
 
             if (!images.length) {
                 galleryGrid.innerHTML = '<div class="empty-state">Noch keine Bilder in der Galerie.</div>';
