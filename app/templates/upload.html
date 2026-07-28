@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Archiv</title>
+    <style>
+        body { font-family: Verdana, Arial, sans-serif; background: #e8e4d8; color: #222; margin: 0; padding: 20px; }
+        .box { background: #fff; border: 2px solid #444; max-width: 700px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 18px; border-bottom: 2px solid #444; padding-bottom: 8px; }
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 13px; }
+        input[type=text], select, textarea { width: 100%; padding: 6px; margin-top: 3px; box-sizing: border-box; }
+        input[type=submit] { margin-top: 15px; padding: 8px 20px; background: #444; color: #fff; border: none; cursor: pointer; }
+        table { width: 100%; margin-top: 25px; border-collapse: collapse; font-size: 12px; }
+        td, th { border: 1px solid #ccc; padding: 5px; text-align: left; }
+        .del-btn { background: #a33; color: #fff; border: none; padding: 3px 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Archiv &ndash; Upload</h1>
+
+        <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            <label>Datei</label>
+            <input type="file" name="file" required>
+
+            <label>Kategorie</label>
+            <select name="category" required>
+                {% for c in categories %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Titel</label>
+            <input type="text" name="title">
+
+            <label>Beschreibung</label>
+            <textarea name="description" rows="3"></textarea>
+
+            <input type="submit" value="Hochladen">
+        </form>
+
+        <table>
+            <tr><th>Datum</th><th>Kategorie</th><th>Titel</th><th>Original-Dateiname</th><th></th></tr>
+            {% for r in recent %}
+            <tr>
+                <td>{{ r[4].strftime('%d.%m.%Y %H:%M') }}</td>
+                <td>{{ r[2] }}</td>
+                <td>{{ r[3] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>
+                    <form action="{{ url_for('delete_media', media_id=r[0]) }}" method="post" style="margin:0;">
+                        <button class="del-btn" type="submit">löschen</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

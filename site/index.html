@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archiv</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Archiv</div>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Start</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+            <li><a href="projekte.html">Projekte</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="downloads.html">Downloads</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="centered">
+    <section class="card upload-card">
+        <h2>Datei hochladen</h2>
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="ajax" value="1">
+            <div class="form-row">
+                <div>
+                    <label for="file">Datei</label>
+                    <input type="file" id="file" name="file" required>
+                </div>
+                <div>
+                    <label for="category">Kategorie</label>
+                    <select id="category" name="category" required>
+                        <option value="galerie">Galerie</option>
+                        <option value="downloads">Downloads</option>
+                        <option value="medien">Medien</option>
+                        <option value="historie">Historie</option>
+                        <option value="produkte">Produkte</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row full">
+                <div>
+                    <label for="title">Titel</label>
+                    <input type="text" id="title" name="title" placeholder="Bildtitel oder Dateiname">
+                </div>
+            </div>
+            <div class="form-row full">
+                <div>
+                    <label for="description">Beschreibung</label>
+                    <textarea id="description" name="description" placeholder="Kurze Beschreibung"></textarea>
+                </div>
+            </div>
+            <button type="submit">Hochladen</button>
+            <div id="status" class="status"></div>
+        </form>
+    </section>
+</main>
+
+<script>
+    const statusEl = document.getElementById('status');
+
+    document.getElementById('uploadForm').addEventListener('submit', async event => {
+        event.preventDefault();
+        statusEl.textContent = 'Lade hoch ...';
+        statusEl.classList.remove('error');
+
+        const formData = new FormData(event.target);
+        try {
+            const response = await fetch(event.target.action, {
+                method: 'POST',
+                body: formData,
+            });
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(text || 'Upload fehlgeschlagen');
+            }
+            statusEl.textContent = 'Upload erfolgreich! Die Datei erscheint auf der Downloads-Seite.';
+            event.target.reset();
+        } catch (error) {
+            statusEl.textContent = error.message;
+            statusEl.classList.add('error');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+
+body { background: #f4f4f4; }
+
+header {
+    background: #1f2937;
+    color: white;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.logo { font-size: 28px; font-weight: bold; }
+
+nav ul { list-style: none; display: flex; gap: 30px; }
+
+nav a { color: white; text-decoration: none; transition: 0.3s; }
+
+nav a:hover, nav a.active { color: #60a5fa; }
+
+main {
+    padding: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main.centered { text-align: center; }
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 30px auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    max-width: 980px;
+    text-align: left;
+}
+
+.card h1 { margin-bottom: 18px; color: #111827; }
+
+.card p { color: #374151; line-height: 1.6; margin-bottom: 12px; }
+
+/* Formulare (Upload-Formular auf der Startseite) */
+.form-row {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 12px;
+}
+
+.form-row.full { grid-template-columns: 1fr; }
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type=text], select, textarea, input[type=file] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    font-size: 0.95rem;
+}
+
+textarea { resize: vertical; min-height: 100px; }
+
+button, input[type=submit] {
+    margin-top: 12px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #1f2937;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+button:hover, input[type=submit]:hover { background: #111827; }
+
+.status { margin-top: 18px; color: #065f46; font-weight: 600; }
+.status.error { color: #991b1b; }
+
+/* Downloads-Liste */
+.download-list { display: flex; flex-direction: column; gap: 14px; }
+
+.download-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.download-item-title { font-weight: 700; color: #111827; margin-bottom: 4px; }
+.download-item-meta { font-size: 0.85rem; color: #6b7280; }
+.download-item-description { font-size: 0.9rem; color: #374151; margin-top: 6px; }
+
+.download-btn {
+    background: #1f2937;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-left: 20px;
+}
+.download-btn:hover { background: #111827; }
+
+.empty-state { color: #6b7280; padding: 30px; text-align: center; }
+
+@media (max-width: 900px) {
+    header { flex-direction: column; height: auto; padding: 20px; }
+    nav ul { margin-top: 15px; flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .form-row { grid-template-columns: 1fr; }
+    .download-item { flex-direction: column; align-items: flex-start; }
+    .download-btn { margin-left: 0; margin-top: 12px; }
+}
