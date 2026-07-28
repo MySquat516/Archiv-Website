@@ -25,9 +25,48 @@
 <main>
     <div class="card">
         <h1>Galerie</h1>
-        <p>Hier werden bilder aus der Galerie-Kategorie angezeigt.</p>
+        <div id="galleryGrid" class="gallery-grid">
+            <div class="empty-state">Lade Bilder ...</div>
+        </div>
     </div>
 </main>
+
+<script>
+    async function loadGallery() {
+        const galleryGrid = document.getElementById('galleryGrid');
+        try {
+            const res = await fetch('/manifest.json', { cache: 'no-store' });
+            if (!res.ok) throw new Error('Galerie konnte nicht geladen werden');
+            const items = await res.json();
+            const images = items.filter(item => item.category === 'galerie');
+
+            if (!images.length) {
+                galleryGrid.innerHTML = '<div class="empty-state">Noch keine Bilder in der Galerie.</div>';
+                return;
+            }
+
+            galleryGrid.innerHTML = images.map(item => {
+                const thumb = item.file_type && item.file_type.startsWith('image/') ?
+                    `<img src="${item.url}" alt="${item.title || item.original_name}">` :
+                    '<div style="padding: 48px 12px; text-align:center; color:#475569;">Datei</div>';
+                return `
+                    <article class="gallery-item">
+                        ${thumb}
+                        <div class="gallery-item-content">
+                            <div class="gallery-item-title">${item.title || item.original_name}</div>
+                            <div class="gallery-item-meta">${new Date(item.upload_date).toLocaleDateString('de-DE')}</div>
+                            <div class="gallery-item-description">${item.description || ''}</div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        } catch (err) {
+            galleryGrid.innerHTML = `<div class="empty-state">${err.message}</div>`;
+        }
+    }
+
+    loadGallery();
+</script>
 
 </body>
 </html>

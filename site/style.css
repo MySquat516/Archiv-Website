@@ -120,6 +120,35 @@ button:hover, input[type=submit]:hover { background: #111827; }
 
 .empty-state { color: #6b7280; padding: 30px; text-align: center; }
 
+/* Galerie */
+.gallery-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    margin-top: 10px;
+}
+
+.gallery-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-item img {
+    width: 100%;
+    object-fit: cover;
+    height: 170px;
+}
+
+.gallery-item-content { padding: 14px; flex: 1; }
+.gallery-item-title { font-weight: 700; margin-bottom: 6px; color: #111827; }
+.gallery-item-meta { font-size: 0.9rem; color: #4b5563; margin-bottom: 10px; }
+.gallery-item-description { font-size: 0.92rem; color: #374151; }
+
 @media (max-width: 900px) {
     header { flex-direction: column; height: auto; padding: 20px; }
     nav ul { margin-top: 15px; flex-wrap: wrap; justify-content: center; gap: 15px; }
