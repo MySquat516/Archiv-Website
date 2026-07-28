@@ -38,7 +38,7 @@
             const res = await fetch('/manifest.json', { cache: 'no-store' });
             if (!res.ok) throw new Error('Liste konnte nicht geladen werden');
             const items = await res.json();
-            const downloads = items.filter(item => item.category === 'downloads');
+            const downloads = items.filter(item => item.category === 'downloads' || item.category === 'dokumente');
 
             if (!downloads.length) {
                 listEl.innerHTML = '<div class="empty-state">Noch keine Dateien hochgeladen.</div>';
